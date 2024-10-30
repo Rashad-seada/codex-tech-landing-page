@@ -35,7 +35,7 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setStatus('Sending...');
 
@@ -95,8 +95,7 @@ const Contact = () => {
               </div>
               <InputGroup label="الموضوع" onChange ={handleChange}  defaultValue={formData.subject}/>
               <TextAreaGroup label="تفاصيل الرساله" onChange ={handleChange} defaultValue={formData.message}/>
-              <Button value="ارسال "  />
-              {/* onClick={handleSubmit}  */}
+              <Button value="ارسال " onClick={handleSubmit}/>
             </div>
           </aside>
         </section>
