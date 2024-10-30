@@ -1,13 +1,13 @@
 package com.example.landing_page.controller
 
+import com.example.landing_page.core.RequestValidator.validateRequest
 import com.example.landing_page.core.dto.CustomResponse
 import com.example.landing_page.dto.ContactRequest
 import com.example.landing_page.models.Contact
 import com.example.landing_page.services.ContactService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import jakarta.validation.Valid
+import org.springframework.validation.BindingResult
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -18,7 +18,14 @@ class ContactController (
 
 
     @PostMapping("/")
-    fun createContact(contactRequest: ContactRequest) : CustomResponse<Contact> {
+    fun createContact(
+        @Valid @RequestBody contactRequest: ContactRequest,
+        bindingResult: BindingResult
+
+    ) : CustomResponse<Contact> {
+
+        val error = validateRequest<Contact>(bindingResult)
+        if(error != null) return error
 
         return CustomResponse(
             isSuccessful = true,
